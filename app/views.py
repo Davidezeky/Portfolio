@@ -1,7 +1,7 @@
 from django.core.mail import send_mail
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-def enviar_correo(request):
+def enviar_correo(request): 
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')

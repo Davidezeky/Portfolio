@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views import enviar_correo  # Asegúrate de ajustar esto según tu estructura de carpetas
+from django.views.generic import TemplateView
+from app.views import enviar_correo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('enviar-correo/', enviar_correo, name='enviar_correo'),  # Agrega esta línea
+    path('enviar-correo/', enviar_correo, name='enviar_correo'),
+    path('success/', TemplateView.as_view(template_name='success.html'), name='success'),
+
+
 ]
