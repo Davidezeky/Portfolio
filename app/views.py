@@ -1,5 +1,4 @@
 from django.core.mail import send_mail
-from django.http import HttpResponse
 from django.shortcuts import render
 
 def enviar_correo(request):
@@ -8,17 +7,19 @@ def enviar_correo(request):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
-        
-        subject = f'Nuevo mensaje de {name} ({phone})'
-        body = f'Mensaje:\n{message}\n\nDe: {name}\nCorreo: {email}'
-        
+
+        # Aquí puedes personalizar el asunto y el contenido del correo
+        asunto = f"Nuevo mensaje de {name}"
+        contenido = f"Nombre: {name}\nCorreo: {email}\nTeléfono: {phone}\nMensaje: {message}"
+
         send_mail(
-            subject,
-            body,
+            asunto,
+            contenido,
             'davidezequielromerovasquez@gmail.com',  # Desde
-            ['destinatario@example.com'],  # A (cambia por la dirección de destino)
+            ['destinatario@example.com'],  # A
             fail_silently=False,
         )
-        return HttpResponse("Correo enviado.")
-    
-    return HttpResponse("Método no permitido.", status=405)
+        # Redirigir o renderizar una respuesta
+        return render(request, 'success.html')  # Asegúrate de crear esta plantilla
+
+    return render(request, 'contact_form.html')  # Si no es POST, muestra el formulario
